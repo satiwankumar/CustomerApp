@@ -1,14 +1,15 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground, StatusBar, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ImageBackground, StatusBar, ScrollView, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, GLOBALSTYLE, TEXTSTYLES } from '../constants';
 import * as Animatable from 'react-native-animatable';
-import { Container, Header, Content, Form, Item, Input, Button, Label, Icon } from 'native-base';
+import { Container, Header, Content, Form, Item, Input, Button, Label, Icon,Accordion  } from 'native-base';
 import Vendor from './components/Vendor'
 import Service from './components/Service'
 
 const Home = props => {
   return (
     <View style={GLOBALSTYLE.screenbg} >
+     
       <StatusBar translucent backgroundColor="transparent" />
 
       <ImageBackground source={require("../assets/images/b3.jpg")}
@@ -19,8 +20,8 @@ const Home = props => {
       <Animatable.View style={styles.formPart}
         animation="slideInUp"
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Header searchBar rounded style={{backgroundColor:COLORS.primary}}>
+
+<Header searchBar rounded style={{backgroundColor:COLORS.primary}}>
           <Item style={{backgroundColor:COLORS.black,height:50,borderRadius:8}}>
             <Icon name="ios-search" />
             <Input placeholder="Search Nearby" style={{color:COLORS.white}} />
@@ -30,34 +31,38 @@ const Home = props => {
             <Text>Search</Text>
           </Button>
         </Header>
-          <Text style={TEXTSTYLES.sectionHead}>Explore Services</Text>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+      
+       
+       <Text style={TEXTSTYLES.sectionHead}>Explore Services</Text>
+        
           <View >
-            <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} >
-              <Service
-                imageUri={require("../assets/images/service1.png")}
-                serviceTitle="Grooming"
-                navigation={props.navigation}
-              />
-              <Service
-                imageUri={require("../assets/images/service2.png")}
-                serviceTitle="Haircut/Trim"
-                navigation={props.navigation}
-              />
-              <Service
-                imageUri={require("../assets/images/service3.png")}
-                serviceTitle="Men's Facial"
-                navigation={props.navigation}
-              />
-              <Button
-                onPress={() => props.navigation.navigate('AllServices')}
-                style={{ alignSelf: 'center', backgroundColor: '#000', borderRadius: 100, borderWidth: 1, borderColor: '#fff', height: 55, width: 55 }}>
-                <Icon name='arrow-forward-outline' style={{ fontSize: 24, color: COLORS.white }} />
-              </Button>
-            </ScrollView>
-          </View>
+          <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} >
+            <Service
+              imageUri={require("../assets/images/service1.png")}
+              serviceTitle="Grooming"
+              navigation={props.navigation}
+            />
+            <Service
+              imageUri={require("../assets/images/service2.png")}
+              serviceTitle="Haircut/Trim"
+              navigation={props.navigation}
+            />
+            <Service
+              imageUri={require("../assets/images/service3.png")}
+              serviceTitle="Men's Facial"
+              navigation={props.navigation}
+            />
+            <Button
+              onPress={() => props.navigation.navigate('AllServices')}
+              style={{ alignSelf: 'center', backgroundColor: '#000', borderRadius: 100, borderWidth: 1, borderColor: '#fff', height: 55, width: 55 }}>
+              <Icon name='arrow-forward-outline' style={{ fontSize: 24, color: COLORS.white }} />
+            </Button>
+          </ScrollView>
+        </View>
 
           <Text style={TEXTSTYLES.sectionHead}>Explore In Your Area</Text>
-
           <View >
             <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} >
               <Vendor

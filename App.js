@@ -1,20 +1,20 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native'
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer,DarkTheme } from '@react-navigation/native'
 import { StyleSheet, View } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack'
 import Tabs from './src/navigation/Tabs'
-
-
-import {Home, JobDetails , PostedJobs, UserBookings ,UserProfile ,LoginScreen,SignUp,SignUp2,BookNow, VendorDetail,AllServices} from './src/screens'
+import {Home,ServiceProvider, JobDetails , PostedJobs, UserBookings ,UserProfile ,LoginScreen,SignUp,SignUp2,BookNow,ForgotPassword, VendorDetail,AllServices,EditProfile, AllReviews} from './src/screens'
+import { COLORS } from './src/constants';
 
 const Stack = createStackNavigator();
-
-
+// useEffect(() => {
+//   setRootViewBackgroundColor('#ccc');
+// });
 const App = () => {
   return (
 
-<NavigationContainer>
+<NavigationContainer theme={DarkTheme} >
       <Stack.Navigator
       screenOptions = {{
         headerShown:false,
@@ -22,6 +22,7 @@ const App = () => {
       initialRouteName={"LoginScreen"}
       >
          <Stack.Screen  name="LoginScreen" component={LoginScreen} ></Stack.Screen>
+         <Stack.Screen  name="ForgotPassword" component={ForgotPassword}></Stack.Screen>
          <Stack.Screen  name="SignUp" component={SignUp} ></Stack.Screen>
          <Stack.Screen  name="SignUp2" component={SignUp2} ></Stack.Screen>
         <Stack.Screen  name="Home" component={Tabs} ></Stack.Screen>
@@ -29,8 +30,12 @@ const App = () => {
         <Stack.Screen  name="VendorDetail" component={VendorDetail} ></Stack.Screen>
         <Stack.Screen  name="BookNow" component={BookNow}></Stack.Screen>
         <Stack.Screen  name="UserBookings" component={UserBookings}></Stack.Screen>
+        <Stack.Screen  name="EditProfile" component={EditProfile}></Stack.Screen>
+        <Stack.Screen  name="AllReviews" component={AllReviews}></Stack.Screen>
+        <Stack.Screen  name="ServiceProvider" component={ServiceProvider}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
+
 
   );
 }

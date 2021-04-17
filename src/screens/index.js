@@ -9,7 +9,10 @@ import SignUp2 from './SignUp2';
 import AllServices from './AllServices';
 import VendorDetail from './VendorDetail';
 import BookNow from './BookNow';
-
+import EditProfile from './EditProfile'
+import AllReviews from './AllReviews'
+import ServiceProvider from './ServiceProvider'
+import ForgotPassword from './ForgotPassword'
 export {
-    Home,JobDetails,PostedJobs,UserBookings,UserProfile,LoginScreen,SignUp,SignUp2,VendorDetail
+    Home,JobDetails,ServiceProvider,ForgotPassword,PostedJobs,UserBookings,EditProfile,UserProfile,LoginScreen,SignUp,SignUp2,VendorDetail,AllReviews
 ,AllServices,BookNow}

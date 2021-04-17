@@ -1,74 +1,60 @@
 import React from 'react';
 import { Text, StyleSheet, Image,StatusBar,TouchableOpacity,ScrollView ,ImageBackground} from 'react-native';
 import { Container, Header, Content,Card,CardItem,Body,FooterTab, Form, Item, Input,Icon, Button, View, Label } from 'native-base';
-import { COLORS, SIZES } from "../constants";
-import Vendor from './components/Vendor'
-import Service from './components/Service'
-import globalStyles from '../styles/globalStyles';
+import {  COLORS, GLOBALSTYLE, SIZES,TEXTSTYLES  } from '../constants'
 
-const UserProfile = () => {
+const UserProfile = ({navigation}) => {
     return(
         <Container style={styles.container}>
-            <StatusBar translucent backgroundColor="transparent" />
-        <ScrollView>
-        <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-    <Text style={globalStyles.sectionHead}>my Bookings</Text>
-    </View>
+              <StatusBar translucent backgroundColor="transparent" />
+        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+        <View style={{alignItems:'center',justifyContent:'center',marginTop:50}}>
+          <View>
+          <Image style={{height:100,width:100,resizeMode:'cover',margin:10,borderRadius:100,borderWidth:2,borderColor:COLORS.secondry}} source={require("../assets/images/p1.jpg")}/>
+          </View>
+        
+        
+        <View style={{alignItems:'center'}}>
+          <Text style={{color:COLORS.white,fontSize:30,fontFamily:'RobotoSlab-Regular'}}>Emily Mark</Text>
+         <View style={{borderWidth:1,borderColor:COLORS.lightGray,padding:10,width:SIZES.width * 0.95,marginTop:20,borderRadius:8}}>
+         <View style={{flexDirection:'row',alignItems:'center',marginBottom:12}}>
+          <Icon style={{color:COLORS.white,marginRight:7}} name="location-outline"></Icon>
+          <Text style={{color:COLORS.lightGray,fontSize:16,width:'95%'}}>70 Fairway Dr., 41, Palm Beach Gardens, 33418</Text>
+          </View>
+          <View style={{flexDirection:'row',alignItems:'center'}}>
+          <Icon style={{color:COLORS.white,marginRight:7}} name="mail-outline"></Icon>
+          <Text style={{color:COLORS.lightGray,fontSize:16}}>           
+            emily.mark@gmail.com</Text>
+          </View>
+         </View>
+         
 
-    <Card style={{backgroundColor:'#000',borderRadius:5}}>
-            <CardItem style={{backgroundColor:COLORS.transparent}}>
-              <Body style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                  <View>
-                  <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:17}}>
-               Trim
+          <TouchableOpacity
+                        hasText
+                        transparent
+                        style={{flexDirection:'row',alignItems:'center',marginTop:15}}
+                        onPress={() => navigation.navigate('EditProfile')}
+                    >
+                      <Icon style={{color:COLORS.secondry}} name="create-outline"></Icon>
+                        <Text style={{ color: COLORS.secondry, fontWeight: "bold", fontSize: 16}}>Edit Profile</Text>
+                    </TouchableOpacity>
+        
+          <TouchableOpacity
+                style={[GLOBALSTYLE.themebtn,styles.alignBtn]}
+                mode="contained"
+                onPress={() => navigation.navigate('LoginScreen')}
+                >
+                <Text style={{ color: 'white', fontSize: 16,textTransform: 'uppercase',}}>LogOut
                 </Text>
-                <Text style={{color:COLORS.white,marginBottom:2}}>By Venille Salons and Spa</Text>
-                <Text style={{color:COLORS.white,marginBottom:10}}>12 March 2020 (4:00 PM)</Text>
-                  </View>
-               
-                <Text style={{color:COLORS.secondry,fontSize:20}}>
-               $30
-                </Text>
-               
-              </Body>
-            </CardItem>
-          </Card>
-          <Card style={{backgroundColor:'#000',borderRadius:5}}>
-            <CardItem style={{backgroundColor:COLORS.transparent}}>
-              <Body style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                  <View>
-                  <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:17}}>
-               cleansing
-                </Text>
-                <Text style={{color:COLORS.white,marginBottom:2}}>By Venille Salons and Spa</Text>
-                <Text style={{color:COLORS.white,marginBottom:10}}>12 March 2020 (4:00 PM)</Text>
-                  </View>
-               
-                <Text style={{color:COLORS.secondry,fontSize:20}}>
-               $30
-                </Text>
-               
-              </Body>
-            </CardItem>
-          </Card>
-          <Card style={{backgroundColor:'#000',borderRadius:5}}>
-            <CardItem style={{backgroundColor:COLORS.transparent}}>
-              <Body style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
-                  <View>
-                  <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:17}}>
-               Hair Styling
-                </Text>
-                <Text style={{color:COLORS.white,marginBottom:2}}>By Venille Salons and Spa</Text>
-                <Text style={{color:COLORS.white,marginBottom:10}}>12 March 2020 (4:00 PM)</Text>
-                  </View>
-               
-                <Text style={{color:COLORS.secondry,fontSize:20}}>
-               $30
-                </Text>
-               
-              </Body>
-            </CardItem>
-          </Card>
+            </TouchableOpacity> 
+              
+          
+          </View>
+          
+            
+
+        
+        </View>
             </ScrollView>
             </Container>
     )
@@ -79,4 +65,8 @@ const styles = StyleSheet.create({
     container: {                
       backgroundColor: COLORS.primary,
     },
+    alignBtn:{
+      marginTop:30,
+      alignItems:'center' 
+    }
 })

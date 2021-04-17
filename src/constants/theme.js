@@ -22,7 +22,7 @@ export const SIZES = {
 };
 
 export const TEXTSTYLES = {
-    sectionHead: {fontFamily:'RobotoSlab-Regular',letterSpacing:3,color:COLORS.white,fontSize:26,textTransform:'uppercase',marginVertical:10,marginLeft:7},
+    sectionHead: {fontFamily:'RobotoSlab-Regular',letterSpacing:3,color:COLORS.white,fontSize:23,textTransform:'uppercase',marginVertical:10,marginLeft:7},
     paragraph : { fontFamily:'Roboto-Regular',color:COLORS.white,fontSize:16,letterSpacing:0.7},
     boxHead: {fontFamily:'RobotoSlab-Regular',color:COLORS.white,fontSize:20 }
 };

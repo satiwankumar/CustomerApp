@@ -50,7 +50,7 @@ const Tabs = () => {
             <Icon style={{fontSize:27, color: focused ? COLORS.secondry : COLORS.lightGray}} name='hourglass-outline' />
         )  
       }}/>
-          <Tab.Screen name="Profile" component={UserBookings}   options={{
+          <Tab.Screen name="Profile" component={UserProfile}   options={{
             showLabel:false,
            tabBarIcon:({tintColor,focused})=>(  
             <Icon style={{fontSize:27, color: focused ? COLORS.secondry : COLORS.lightGray}} name='person-outline' />

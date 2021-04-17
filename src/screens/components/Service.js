@@ -7,7 +7,9 @@ const Service = (props,navigation) => {
     return (
         <TouchableOpacity
             style={styles.serviceBox}
-            onPress={() => props.navigation.navigate('BookNow')}
+            onPress={() => props.navigation.navigate('ServiceProvider', {
+                ServiceName : props.serviceTitle
+              })}
         >
             <View style={{ flex: 2 }}>
                 <Image

@@ -15,7 +15,6 @@ const SignUp = ({ navigation }) => {
             
             <View style={styles.formContent}>
                 <Animatable.Image
-                    animation='zoomIn'
                     style={styles.logo}
                     source={require("../assets/images/logo.png")}
                 />

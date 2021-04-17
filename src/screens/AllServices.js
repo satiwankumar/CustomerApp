@@ -46,16 +46,18 @@ const AllServices = (props) => {
            <Service 
           imageUri={require("../assets/images/service1.png")}
           serviceTitle="Grooming"
-          style={styles.shu}
+          navigation={props.navigation}
           />
 
 <Service 
           imageUri={require("../assets/images/service2.png")}
           serviceTitle="Haircut/Trim"
+          navigation={props.navigation}
           />
            <Service 
           imageUri={require("../assets/images/service3.png")}
           serviceTitle="Men's Facial"
+          navigation={props.navigation}
           />
         </View>
 
@@ -79,5 +81,6 @@ servicePage:{
 flexWrap:'wrap',
 display:'flex',
 flexDirection:'row',
+alignItems:'center',justifyContent:'center'
 }
 });

@@ -4,7 +4,7 @@ import { Item, Input, Button, View, Label } from 'native-base';
 import { COLORS, SIZES, GLOBALSTYLE } from '../constants';
 import * as Animatable from 'react-native-animatable';
 
-const LoginScreen = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
 
     return (
         <View style={[GLOBALSTYLE.screenbg,styles.container]} >
@@ -16,8 +16,8 @@ const LoginScreen = ({ navigation }) => {
                     style={styles.logo}
                     source={require("../assets/images/logo.png")}
                 />
-                <Text style={styles.headText}> Sign In </Text>
-                <Text style={styles.headDesc}>Please SignIn to Continue </Text>
+                <Text style={styles.headText}> Forgot your Password? </Text>
+                <Text style={styles.headDesc}>No worries! Enter your Email and we will send you a Reset </Text>
 
                 <Item
                     floatingLabel
@@ -31,57 +31,20 @@ const LoginScreen = ({ navigation }) => {
                         autoCapitalize="none"
                     />
                 </Item>
-
-                <Item
-                    floatingLabel
-                    style={styles.inputBox}>
-                    <Label
-                        style={styles.labelContent}>Password</Label>
-                    <Input
-                        style={styles.textContent}
-                        autoCorrect={false}
-                        autoCapitalize="none"
-                        secureTextEntry={true}
-                        placeholderTextColor={COLORS.white}
-                    />
-                </Item>
-
-                <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-                    <Text style={{ color: COLORS.lightGray, marginTop: 12.5, fontSize: 14 }}>Forgot Password?</Text>
-                    <Button
-                        hasText
-                        transparent
-                        onPress={() => navigation.navigate('ForgotPassword')}
-                    >
-                        <Text style={{ color: COLORS.secondry, fontWeight: "bold", fontSize: 14, marginLeft: 4 }}>Recover Here</Text>
-                    </Button>
-                </View>
-
                 <Button
                     style={GLOBALSTYLE.themebtn}
                     mode="contained"
                     onPress={() => navigation.navigate('Home')}
                 >
-                    <Text style={{ color: 'white', fontSize: 14, textTransform: 'uppercase' }}>sign in</Text>
+                    <Text style={{ color: 'white', fontSize: 14, textTransform: 'uppercase' }}>Send Request</Text>
                 </Button>
-
-                <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-                    <Text style={{ color: COLORS.lightGray, marginTop: 12.5, fontSize: 14 }}>New Here? </Text>
-                    <Button
-                        hasText
-                        transparent
-                        onPress={() => navigation.navigate('SignUp')}
-                    >
-                        <Text style={{ color: COLORS.secondry, fontWeight: "bold", fontSize: 14, textTransform: 'uppercase' }}> Sign Up</Text>
-                    </Button>
-                </View>
             </View>
             </ScrollView>
         </View>
     )
 }
 
-export default LoginScreen;
+export default ForgotPassword;
 
 const styles = StyleSheet.create({
     container: {
@@ -97,7 +60,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 32,
+        fontSize: 22,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',
