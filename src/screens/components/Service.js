@@ -1,15 +1,32 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { Text, StyleSheet, ImageBackground, Image, ScrollView, TouchableOpacity } from "react-native";
 import { Container, Header, Content, Form, Item, Input, Button, View, Icon } from 'native-base';
 import {  COLORS, SIZES, GLOBALSTYLE ,TEXTSTYLES  } from "../../constants";
+import {useRoute} from '@react-navigation/native';
+import {getServices} from '../../redux/actions/services'
+import {connect} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 
-const Service = (props,navigation) => {
+
+const Service = (props) => {
+    // const serviceData = useSelector(state=>state);
+    // const dispatch = useDispatch()
+
+    // useEffect(() => {
+    //     dispatch(getServices())
+    //     console.log("SERVICE KA COMPOMNENTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",serviceData)
+        
+    // },[])
+
+    const route = useRoute();
+console.log(route)
+console.log("rounem:"+route.name);
     return (
         <TouchableOpacity
             style={styles.serviceBox}
-            onPress={() => props.navigation.navigate('ServiceProvider', {
-                ServiceName : props.serviceTitle
-              })}
+            onPress={
+                route.name == 'Home' ? () => props.navigation.navigate('ServiceProvider',{ServiceName: props.serviceTitle}) :  () => props.navigation.navigate('BookNow') }
+           
         >
             <View style={{ flex: 2 }}>
                 <Image

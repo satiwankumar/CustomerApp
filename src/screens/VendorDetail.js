@@ -62,6 +62,7 @@ const VendorDetail = props => {
                 imageUri={require("../assets/images/service1.png")}
                 serviceTitle="Grooming"
                 navigation={props.navigation}
+              
               />
               <Service
                 imageUri={require("../assets/images/service2.png")}

@@ -1,12 +1,20 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground, StatusBar, ScrollView, TouchableOpacity } from "react-native";
+import React, {useState,useEffect} from 'react';
+import { View, Text, StyleSheet, Image, ImageBackground, StatusBar, ScrollView, TouchableOpacity,BackHandler,Alert } from "react-native";
 import { COLORS, SIZES, GLOBALSTYLE, TEXTSTYLES } from '../constants';
 import * as Animatable from 'react-native-animatable';
 import { Container, Header, Content, Form, Item, Input, Button, Label, Icon,Accordion  } from 'native-base';
 import Vendor from './components/Vendor'
 import Service from './components/Service'
+import {getServices} from '../redux/actions/services'
+import {connect} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
+const Home = (props) => {
 
-const Home = props => {
+    // useEffect(() => {
+    //    getServices()
+    //     console.log("STYSGDHBDBBBBBBBBBBBBBBBBBBBBBBB",Services)
+    // },[])
+
   return (
     <View style={GLOBALSTYLE.screenbg} >
      
@@ -107,7 +115,12 @@ const Home = props => {
   );
 };
 
-export default Home;
+
+const mapStateToProps = (state) => ({
+  services: state.services,
+  auth:state.auth
+});
+export default connect(mapStateToProps, {  getServices })(Home);
 
 const styles = StyleSheet.create({
   formPart: {

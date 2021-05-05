@@ -1,10 +1,22 @@
-import React from 'react';
-import { Text, StyleSheet,StatusBar,ScrollView ,Image, TouchableOpacity} from 'react-native';
+import React ,{useState} from 'react';
+import { Text, StyleSheet,StatusBar,ScrollView ,Image, TouchableOpacity,ImageBackground} from 'react-native';
 import { Item, Input, Button, View, Label,Icon } from 'native-base';
-import { COLORS, SIZES, GLOBALSTYLE } from '../constants';
+import { COLORS, SIZES, GLOBALSTYLE } from '../../constants';
 import * as Animatable from 'react-native-animatable';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const EditProfile = ({ navigation }) => {
+    const [avatar,setAvatar] = useState(null)
+    const chooseFromGallery = () =>{
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(avatar => {
+            console.log("Image",avatar);
+            setAvatar(avatar.path)
+          });
+    }
 
     return (
         <View style={[GLOBALSTYLE.screenbg,styles.container]} >
@@ -13,10 +25,22 @@ const EditProfile = ({ navigation }) => {
             <View style={styles.formContent}>
                 <Text style={styles.headText}> Edit Profile </Text>
                 <View style={{height:100,width:100,margin:10,borderRadius:100,borderWidth:2,overflow:'hidden',borderColor:COLORS.secondry,alignItems:'center',justifyContent:'center'}}>
-                <Image style={{resizeMode:'cover',width:'100%',height:'100%',opacity:0.4}} source={require("../assets/images/p1.jpg")}/>
-                <TouchableOpacity style={{position:'absolute',alignItems:'center',justifyContent:'center'}}>
-                <Icon style={{color:COLORS.white,fontSize:40}} name="add-outline"></Icon>
-                </TouchableOpacity>
+                
+                {/* <TouchableOpacity 
+                onPress={chooseFromGallery}
+                style={{position:'absolute',alignItems:'center',justifyContent:'center'}}>
+                    <ImageBackground source={{ uri: '../assets/images/p2.jpg' }} style={{height:100,width:100}}>
+                    <Icon style={{color:COLORS.white,fontSize:40}} name="add-outline"></Icon>
+            
+            </ImageBackground>
+               
+                </TouchableOpacity> */}
+
+<TouchableOpacity style={styles.avatar}>
+            <ImageBackground source={{ uri: avatar }} style={styles.avatarimg}>
+              <Icon name='ios-add' size={50} style={{color:COLORS.white,fontSize:35}} onPress={chooseFromGallery} />
+            </ImageBackground>
+          </TouchableOpacity>
                
                 </View>
 
@@ -122,6 +146,23 @@ const styles = StyleSheet.create({
         width: SIZES.width * 0.80,
         alignItems: 'center',
         maxWidth:400
-    }
+    },
+    avatar: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: COLORS.primary,
+        
+      },
+      avatarimg: {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        borderRadius: 50,
+        alignItems:'center',
+        display:'flex',
+        justifyContent: 'center'
+    
+      }
 
 });

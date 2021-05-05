@@ -1,12 +1,39 @@
-import React from 'react';
-import { Text, StyleSheet, Image, StatusBar, ScrollView, TouchableOpacity } from 'react-native';
+import React,{useEffect} from 'react';
+import { Text, StyleSheet, Image, StatusBar, ScrollView, TouchableOpacity} from 'react-native';
 import { Item, Input, Button, View, Label } from 'native-base';
-import { COLORS, SIZES ,GLOBALSTYLE } from '../constants';
+import { COLORS, SIZES ,GLOBALSTYLE } from '../../constants';
 import * as Animatable from 'react-native-animatable';
 import { Icon } from 'native-base';
+import { useState } from 'react';
+import { Picker } from '@react-native-picker/picker'; 
+import {connect, useSelector} from 'react-redux'
+import {register} from '../../redux/actions/auth'
 
+const SignUp2 = (props) => {
+    // const { firstname,lastname, email, password ,image} = props.route.params;
+    // const isRegistered =useSelector(state=>state.auth.isReg);
 
-const SignUp = ({ navigation }) => {
+    // const [formData,setformData] = useState({
+    //     firstname:firstname,
+    //     lastname:lastname,
+    //     image:image,
+    //     email:email,
+    //     password:password,
+    //     city:'',
+    //     country:'',
+    //     address:'',
+    //     zip_code:'',
+    //     confirmpassword:'abc.123',
+    //     role:'admin'
+       
+    // })
+    // const {city,country,address,zip_code} = formData
+    const onSubmit = ({navigation})=>{
+        console.log("FINALDATA GOINGGG",formData)
+        props.register(formData)
+        console.log(isRegistered,'STATUS')
+    }
+
     return (
         <View style={[GLOBALSTYLE.screenbg,styles.container]} >
         <StatusBar translucent backgroundColor="transparent"/>
@@ -17,12 +44,12 @@ const SignUp = ({ navigation }) => {
                 <Animatable.Image
                     animation='zoomIn'
                     style={styles.logo}
-                    source={require("../assets/images/logo.png")}
+                    source={require("../../assets/images/logo.png")}
                 />
                 <Text style={styles.headText}> Your Location </Text>
                 <Text style={styles.headDesc}>Enter Details to View Nearby Shops </Text>
                
-                <Item
+                {/* <Item
                     floatingLabel
                     style={styles.inputBox}>
                     <Label
@@ -33,19 +60,57 @@ const SignUp = ({ navigation }) => {
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
                     />
-                </Item>
-                <Item
-                    floatingLabel
-                    style={styles.inputBox}>
-                    <Label
-                        style={styles.labelContent}>Select City</Label>
-                    <Input
-                        style={styles.textContent}
-                        autoCorrect={false}
-                        placeholderTextColor={COLORS.white}
-                        autoCapitalize="none"
-                    />
-                </Item>
+                </Item> */}
+      <Item  style={styles.inputBox}>          
+<Picker
+itemStyle={{
+    backgroundColor: "#000"            
+  }}
+style={{flex:1,color:COLORS.lightGray}}
+dropdownIconColor={COLORS.lightGray}
+placeholderTextColor={COLORS.secondry}
+itemStyle={{backgroundColor:COLORS.secondry}}
+// selectedValue = {country}
+//   onValueChange={(itemValue, itemIndex) =>
+//     setformData({...formData,country:itemValue})
+    
+//   }
+  >
+     <Picker.Item label="Select Country" value='' />
+  <Picker.Item style={{backgroundColor:COLORS.primary}} label="USA" value="usa" />
+  <Picker.Item label="UK" value="uk" />
+ 
+  
+</Picker>
+
+</Item>
+
+<Item  style={styles.inputBox}>          
+<Picker
+itemStyle={{
+    backgroundColor: "#000"            
+  }}
+style={{flex:1,color:COLORS.lightGray}}
+dropdownIconColor={COLORS.lightGray}
+placeholderTextColor={COLORS.secondry}
+itemStyle={{backgroundColor:COLORS.secondry}}
+// selectedValue={city}
+// onValueChange={(itemValue, itemIndex) =>
+//     // setSelectedCountry(itemValue)
+//     setformData({...formData,city:itemValue})
+    
+//   }
+  >
+     <Picker.Item label="Select City" value='' />
+  <Picker.Item style={{backgroundColor:COLORS.primary}} label="Newyork" value="ny" />
+  <Picker.Item label="Chicago" value="chicago" />
+  <Picker.Item label="Boston" value="bs" />
+  <Picker.Item label="Seatle" value="st" />
+ 
+  
+</Picker>
+
+</Item>
                 <Item
                     floatingLabel
                     style={styles.inputBox}>
@@ -56,6 +121,7 @@ const SignUp = ({ navigation }) => {
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
+                        onChangeText={(e)=>setformData({...formData,address:e})}
                     />
                 </Item>
 
@@ -69,12 +135,14 @@ const SignUp = ({ navigation }) => {
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
+                        onChangeText={(e)=>setformData({...formData,zip_code:e})}
                     />
                 </Item>
                 <Button
                 style={GLOBALSTYLE.themebtn}
                 mode="contained"
-                onPress={() => navigation.navigate('LoginScreen')}
+                // onPress={onSubmit}
+                onPress= {() => props.navigation.navigate('FindServices')}
                 >
                 <Text style={{ color: 'white', fontSize: 16,textTransform: 'uppercase'  }}>Next 
                 <Icon style={{fontSize:15,marginLeft:10}} name='arrow-forward' />
@@ -88,7 +156,10 @@ const SignUp = ({ navigation }) => {
     )
 }
 
-export default SignUp;
+
+
+// export default SignUp;
+export default connect(null,{register})(SignUp2) 
 
 const styles = StyleSheet.create({
     container: {

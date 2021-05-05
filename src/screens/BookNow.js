@@ -1,30 +1,37 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet,Image,ImageBackground,StatusBar,ScrollView ,TouchableOpacity} from "react-native";
 import { COLORS, SIZES, GLOBALSTYLE, TEXTSTYLES } from '../constants';
 import * as Animatable from 'react-native-animatable';
 import { Container, Header, Content, Form, Item, Input, Button,  Label } from 'native-base';
 import CalendarPicker from 'react-native-calendar-picker';
 import Team from './components/Team'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
-export default class UserBookings extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          selectedStartDate: null,
-        };
-        this.onDateChange = this.onDateChange.bind(this);
-      }
+const BookNow = () => {
+    const [isDayPickerVisible, setDayPickerVisibility] = useState(false);
+    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+    const showDayPicker = () => {
+        setDayPickerVisibility(true);
+      };
+      const showTimePicker = () => {
+        setTimePickerVisibility(true);
+      };
+      const hideDayPicker = () => {
+        setDayPickerVisibility(false);
+      };
+      const hideTimePicker = () => {
+        setTimePickerVisibility(false);
+      };
     
-      onDateChange(date) {
-        this.setState({
-          selectedStartDate: date,
-        });
-      }
-    render(){
-        const { selectedStartDate } = this.state;
-        const date = new Date();
-        const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+      const handleConfirmDay = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideDayPicker();
+      };
+      const handleConfirmTime = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideTimePicker();
+      };
         return (
             <View style={GLOBALSTYLE.screenbg} >
             <StatusBar translucent backgroundColor="transparent" />
@@ -43,9 +50,9 @@ export default class UserBookings extends Component {
                     </View>
                     <Text style={{color:COLORS.lightGray,fontSize:15,}}>Enjoy the exclusive experience of a complete haircut that too with a compimentory Hot towel and Extras.</Text>
                     <Text style={{color:COLORS.white,fontSize:15,marginTop:10}}>By - Bedale Beauty</Text>
-                    <Text style={TEXTSTYLES.sectionHead}>select day</Text>
-                    <View style={{borderWidth:2,borderColor:COLORS.secondry,backgroundColor:'#000',borderRadius:10,alignItems:'center',overflow:'hidden',height:320}}>
-        <CalendarPicker
+                    <Text style={TEXTSTYLES.sectionHead}>Book Date</Text>
+                   
+        {/* <CalendarPicker
           onDateChange={this.onDateChange}
           scrollable={true}
           textStyle={{color:COLORS.white}}
@@ -54,8 +61,26 @@ export default class UserBookings extends Component {
           selectedDayStyle={{backgroundColor:COLORS.secondry}}
           headerWrapperStyle={{paddingLeft:0}}
           
-        />
-      </View>
+        /> */}
+        <View style={{alignItems:'center',flexDirection:'row'}}>
+        <Button  title="Show Date Picker" style={{backgroundColor:COLORS.primary,padding:10,borderWidth:1,borderColor:COLORS.secondry,borderRadius:6,paddingHorizontal:20}} onPress={showDayPicker} ><Text style={{color:COLORS.white}}>SELECT DAY</Text></Button>
+        <Button  title="Show Date Picker" style={{backgroundColor:COLORS.primary,padding:10,marginLeft:10,borderWidth:1,borderColor:COLORS.secondry,borderRadius:6,paddingHorizontal:20}} onPress={showTimePicker} ><Text style={{color:COLORS.white}}>SELECT TIME</Text></Button>
+        </View>
+        
+        <DateTimePickerModal
+        isVisible={isDayPickerVisible}
+        mode="date"
+        onConfirm={handleConfirmDay}
+        onCancel={hideDayPicker}
+      />
+     
+        <DateTimePickerModal
+        isVisible={isTimePickerVisible}
+        mode="time"
+        minimumDate={new Date()}
+        onConfirm={handleConfirmTime}
+        onCancel={hideTimePicker}
+      />
       <Text style={TEXTSTYLES.sectionHead}>Choose Stylist</Text>
       <ScrollView scrollEventThrottle={16} horizontal={true}  showsHorizontalScrollIndicator={false} >
           <Team imageUri={require("../assets/images/p2.jpg")} memberName ='John Deo'/>
@@ -91,10 +116,10 @@ export default class UserBookings extends Component {
            </View>
             
           );
-    }
 
 };
 
+export default BookNow;
 
 const styles = StyleSheet.create({
     formPart:{
