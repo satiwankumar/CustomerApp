@@ -10,30 +10,6 @@ import {connect, useSelector} from 'react-redux'
 import {register} from '../../redux/actions/auth'
 
 const SignUp2 = (props) => {
-    // const { firstname,lastname, email, password ,image} = props.route.params;
-    // const isRegistered =useSelector(state=>state.auth.isReg);
-
-    // const [formData,setformData] = useState({
-    //     firstname:firstname,
-    //     lastname:lastname,
-    //     image:image,
-    //     email:email,
-    //     password:password,
-    //     city:'',
-    //     country:'',
-    //     address:'',
-    //     zip_code:'',
-    //     confirmpassword:'abc.123',
-    //     role:'admin'
-       
-    // })
-    // const {city,country,address,zip_code} = formData
-    const onSubmit = ({navigation})=>{
-        console.log("FINALDATA GOINGGG",formData)
-        props.register(formData)
-        console.log(isRegistered,'STATUS')
-    }
-
     return (
         <View style={[GLOBALSTYLE.screenbg,styles.container]} >
         <StatusBar translucent backgroundColor="transparent"/>
@@ -49,18 +25,6 @@ const SignUp2 = (props) => {
                 <Text style={styles.headText}> Your Location </Text>
                 <Text style={styles.headDesc}>Enter Details to View Nearby Shops </Text>
                
-                {/* <Item
-                    floatingLabel
-                    style={styles.inputBox}>
-                    <Label
-                        style={styles.labelContent}>Select Country</Label>
-                    <Input
-                        style={styles.textContent}
-                        autoCorrect={false}
-                        placeholderTextColor={COLORS.white}
-                        autoCapitalize="none"
-                    />
-                </Item> */}
       <Item  style={styles.inputBox}>          
 <Picker
 itemStyle={{
@@ -121,7 +85,7 @@ itemStyle={{backgroundColor:COLORS.secondry}}
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
-                        onChangeText={(e)=>setformData({...formData,address:e})}
+                        // onChangeText={(e)=>setformData({...formData,address:e})}
                     />
                 </Item>
 
@@ -135,7 +99,7 @@ itemStyle={{backgroundColor:COLORS.secondry}}
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
-                        onChangeText={(e)=>setformData({...formData,zip_code:e})}
+                        // onChangeText={(e)=>setformData({...formData,zip_code:e})}
                     />
                 </Item>
                 <Button
@@ -175,7 +139,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 32,
+        fontSize: 27,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',
@@ -201,7 +165,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 8,
         borderColor: COLORS.transparent,
-        marginTop: 20
+        marginTop: 20,
+        paddingHorizontal:15
     },
     labelContent: {
         color: COLORS.lightGray,

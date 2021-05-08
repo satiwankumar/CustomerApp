@@ -10,7 +10,7 @@ const PostedJobs = () => {
   return (
     <Container style={styles.container}>
       <StatusBar translucent backgroundColor="transparent" />
-      <Header searchBar rounded style={{ backgroundColor: COLORS.primary, marginTop: 40 }}>
+      <Header searchBar rounded style={{backgroundColor:COLORS.primary,width:SIZES.width*0.95,alignSelf:'center',marginTop:30}}>
           <Item style={{ backgroundColor: COLORS.black, height: 50, borderRadius: 8 }}>
             <Icon name="ios-search" />
             <Input placeholder="Find Job" style={{ color: COLORS.white }} />

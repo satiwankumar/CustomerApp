@@ -29,7 +29,7 @@ const Home = (props) => {
         animation="slideInUp"
       >
 
-<Header searchBar rounded style={{backgroundColor:COLORS.primary}}>
+<Header searchBar rounded style={{backgroundColor:COLORS.primary,width:SIZES.width*0.95,alignSelf:'center'}}>
           <Item style={{backgroundColor:COLORS.black,height:50,borderRadius:8}}>
             <Icon name="ios-search" />
             <Input placeholder="Search Nearby" style={{color:COLORS.white}} />

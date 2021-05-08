@@ -10,14 +10,14 @@ import {login} from '../../redux/actions/auth'
 
 
 const LoginScreen = (props) => {
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener(
-          "hardwareBackPress",
-          onPress= () => BackHandler.exitApp()
-        );
+    // useEffect(() => {
+    //     const backHandler = BackHandler.addEventListener(
+    //       "hardwareBackPress",
+    //       onPress= () => BackHandler.exitApp()
+    //     );
     
-        return () => backHandler.remove();
-      }, []);
+    //     return () => backHandler.remove();
+    //   }, []);
       
     const [formData,setFormData] = useState({
       
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 32,
+        fontSize: 27,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',

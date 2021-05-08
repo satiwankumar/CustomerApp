@@ -69,10 +69,10 @@ const LocationAccess =(props) => {
        <Icon style={{color:COLORS.secondry,fontSize:100}} name="location-outline"></Icon>
        <Text style={{fontSize:26,textAlign:'center',color:COLORS.white,textTransform:'uppercase'}}> Enable Location Services</Text>
        <Text style={{color:COLORS.lightGray,fontSize:16,marginBottom:30,textAlign:'center'}}>Turn on Location Services to see what's nearby </Text>
-         <TouchableOpacity onPress={getloc} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:320}}>
+         <TouchableOpacity onPress={getloc} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:SIZES.width*0.90}}>
              <Text style={{color:COLORS.white,fontSize:17,textTransform:'uppercase',textAlign:'center'}}>Allow Location Access</Text>
          </TouchableOpacity>
-         <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:320}}>
+         <TouchableOpacity onPress={() => props.navigation.navigate('Home')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:SIZES.width*0.90}}>
              <Text style={{color:COLORS.white,fontSize:17,textTransform:'uppercase',textAlign:'center'}}>Not Now</Text>
          </TouchableOpacity>
        </View>

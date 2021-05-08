@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 32,
+        fontSize: 27,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',

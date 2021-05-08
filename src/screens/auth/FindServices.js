@@ -21,13 +21,13 @@ const FindServices =(props) => {
        <ScrollView contentContainerStyle={{ flexGrow: 1,alignItems:'center' }}>
          <Text style={{color:COLORS.white,fontSize:22,textAlign:'center',textTransform:'uppercase',fontFamily:'RobotoSlab-Regular'}}>Book-king lets you find nearby services Effortlessly</Text>
          <Text style={{color:COLORS.lightGray,fontSize:20,marginBottom:30,textAlign:'center'}}>Show me Services For:</Text>
-         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:320}}>
+         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:SIZES.width*0.90}}>
              <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:20,textAlign:'center'}}>Men</Text>
          </TouchableOpacity>
-         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:320}}>
+         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:SIZES.width*0.90}}>
              <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:20,textAlign:'center'}}>WOmen</Text>
          </TouchableOpacity>
-         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:320}}>
+         <TouchableOpacity onPress={() => props.navigation.navigate('LocationAccess')} style={{backgroundColor:COLORS.black,padding:12,borderRadius:8,borderColor:COLORS.secondry,borderWidth:1,marginBottom:7,width:SIZES.width*0.90}}>
              <Text style={{color:COLORS.white,textTransform:'uppercase',fontSize:20,textAlign:'center'}}>Both</Text>
          </TouchableOpacity>
        </ScrollView>

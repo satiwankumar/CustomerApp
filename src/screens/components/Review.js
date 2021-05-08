@@ -5,7 +5,7 @@ import {  COLORS, SIZES, GLOBALSTYLE ,TEXTSTYLES  } from "../../constants";
 
 const Review = (props) => {
     return (
-        <Card style={{backgroundColor:COLORS.primary}}>
+        <Card style={{backgroundColor:COLORS.primary,width:SIZES.width*0.92,alignSelf:'center'}}>
         <CardItem style={{backgroundColor:COLORS.transparent,}}>
           <Body>
               <View style={{flexDirection:'row',alignItems:'center'}}>
