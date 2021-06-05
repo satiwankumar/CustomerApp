@@ -1,17 +1,21 @@
 import React,{useState} from 'react';
-import { Text, StyleSheet,StatusBar,ScrollView,ActivityIndicator } from 'react-native';
+import { Text, StyleSheet,StatusBar,ScrollView } from 'react-native';
 import { Item, Input, Button, View, Label } from 'native-base';
 import { COLORS, SIZES, GLOBALSTYLE } from '../../constants';
 import * as Animatable from 'react-native-animatable';
-import {forgotPassword} from '../../redux/actions/auth'
+import {resetPassword} from '../../redux/actions/auth'
 import {connect} from 'react-redux'
+import Toast from 'react-native-simple-toast';
 
-const ForgotPassword = ({props, navigation,forgotPassword,Auth:{loading} }) => {
-    const [email,setEmail] = useState('')
+const ResetPassword = (props,{ navigation,resetPassword }) => {
+    const [password,setPassword] = useState(null)
+    const [confirmpassword,setConfirmPassword] = useState(null)
+    const ResetCode = props.route.params.resetcode;
+    console.log("rerst atyyaya",ResetCode)
     const onSubmit= async()=>{
-        console.log("Verification code Sent To",email)
-         forgotPassword(email,navigation)
-        
+        console.log("Verification code",password,confirmpassword,ResetCode)
+        resetPassword(password,confirmpassword,ResetCode)
+      
     }
     return (
         <View style={[GLOBALSTYLE.screenbg,styles.container]} >
@@ -23,43 +27,55 @@ const ForgotPassword = ({props, navigation,forgotPassword,Auth:{loading} }) => {
                     style={styles.logo}
                     source={require("../../assets/images/logo.png")}
                 />
-                <Text style={styles.headText}> Forgot your Password? </Text>
-                <Text style={styles.headDesc}>No worries! Enter your Email and we will send you a Reset </Text>
+                <Text style={styles.headText}> Reset Your Password </Text>
 
                 <Item
-                    floatingLabel
-                    style={styles.inputBox}>
-                    <Label
-                        style={styles.labelContent}>Email</Label>
-                    <Input
-                        style={styles.textContent}
-                        autoCorrect={false}
-                        placeholderTextColor={COLORS.white}
-                        autoCapitalize="none"
-                        onChangeText={(e)=>setEmail(e)}
-                    />
-                </Item>
+                        floatingLabel
+                        style={styles.inputBox}>
+                        <Label
+                            style={styles.labelContent}>Password</Label>
+                        <Input
+                            style={styles.textContent}
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                            secureTextEntry={true}
+                            placeholderTextColor={COLORS.white}
+                            onChangeText={(e) => setPassword(e)}
+                        />
+                    </Item>
+                    <Item
+                        floatingLabel
+                        style={styles.inputBox}>
+                        <Label
+                            style={styles.labelContent}>Confirm Password</Label>
+                        <Input
+                            style={styles.textContent}
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                            secureTextEntry={true}
+                            placeholderTextColor={COLORS.white}
+                            onChangeText={(e) => setConfirmPassword(e)}
+                        />
+                    </Item>
                 <Button
                     style={GLOBALSTYLE.themebtn}
                     mode="contained"
                     onPress={onSubmit}
                 >
-                    <Text style={{ color: 'white', fontSize: 14, textTransform: 'uppercase' }}>Send Request</Text>
+                    <Text style={{ color: 'white', fontSize: 14, textTransform: 'uppercase' }}>Update Password</Text>
                 </Button>
             </View>
-            
             </ScrollView>
         </View>
     )
 }
 
 const mapStateToProps = state =>({
-    Auth : state.auth
+    isAuthenticated : state.auth.isAuthenticated
     })
     
     
-    export default connect(mapStateToProps,{forgotPassword})(ForgotPassword)
-// export default ForgotPassword;
+    export default connect(mapStateToProps,{resetPassword})(ResetPassword)
 
 const styles = StyleSheet.create({
     container: {
@@ -102,8 +118,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 8,
         borderColor: COLORS.transparent,
-        marginTop: 20,
-        paddingHorizontal:15
+        marginTop: 20
     },
     labelContent: {
         color: COLORS.lightGray,

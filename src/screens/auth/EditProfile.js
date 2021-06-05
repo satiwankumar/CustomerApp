@@ -4,18 +4,49 @@ import { Item, Input, Button, View, Label,Icon } from 'native-base';
 import { COLORS, SIZES, GLOBALSTYLE } from '../../constants';
 import * as Animatable from 'react-native-animatable';
 import ImagePicker from 'react-native-image-crop-picker';
+import { updateProfile } from '../../redux/actions/profile'
+import {connect} from 'react-redux';
+import Toast from 'react-native-simple-toast';
+import ImgToBase64 from 'react-native-image-base64';
 
-const EditProfile = ({ navigation }) => {
-    const [avatar,setAvatar] = useState(null)
-    const chooseFromGallery = () =>{
+const EditProfile = (props,{ navigation,updateProfile }) => {
+    const  formData = props.route.params;
+    // const formData = { firstname,lastname,email,address}
+    const [EditData,setEditData] = useState({
+        firstname:formData.firstname,
+        lastname:formData.lastname,
+        email:formData.email,
+        address:formData.address,
+        image:formData.image,
+    })
+    console.log("edit ka page haiiaiii",formData)
+    const chooseFromGallery = () => {
         ImagePicker.openPicker({
             width: 300,
             height: 400,
-            cropping: true
-          }).then(avatar => {
-            console.log("Image",avatar);
-            setAvatar(avatar.path)
-          });
+            cropping: false
+        }).then(avatar => {
+            console.log("Image", avatar);
+            setEditData({ ...EditData, image: avatar.path })
+        });
+    }
+
+    const onSubmit= async ()=>{
+        await ImgToBase64.getBase64String(EditData.image)
+        .then(base64String => {
+            console.log("base formatt",base64String)
+            setEditData({ ...EditData, image: base64String })
+
+        }
+
+        )
+        .catch(err =>
+            Toast.show("Image Type Not Supported", Toast.SHORT)
+        );
+        console.log("UPDATED frm data",EditData.image)
+        // props.updateProfile(EditData)
+     
+
     }
 
     return (
@@ -37,12 +68,24 @@ const EditProfile = ({ navigation }) => {
                 </TouchableOpacity> */}
 
 <TouchableOpacity style={styles.avatar}>
-            <ImageBackground source={{ uri: avatar }} style={styles.avatarimg}>
+            <ImageBackground source={{ uri: EditData.image }} style={styles.avatarimg}>
               <Icon name='ios-add' size={50} style={{color:COLORS.white,fontSize:35}} onPress={chooseFromGallery} />
             </ImageBackground>
           </TouchableOpacity>
                
                 </View>
+                <Item
+                    style={styles.inputBox}>
+                        <Icon style={{color:COLORS.lightGray}} name="person-outline"></Icon>
+                    <Input
+                        style={styles.textContent}
+                        autoCorrect={false}
+                        placeholderTextColor={COLORS.white}
+                        autoCapitalize="none"
+                        value={EditData.firstname}
+                        onChangeText={(e)=>setEditData({...EditData,firstname:e})}
+                    />
+                </Item>
 
                 <Item
                     style={styles.inputBox}>
@@ -52,7 +95,8 @@ const EditProfile = ({ navigation }) => {
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
-                        value="Email Mark"
+                        value={EditData.lastname}
+                        onChangeText={(e)=>setEditData({...EditData,lastname:e})}
                     />
                 </Item>
                 <Item
@@ -63,7 +107,8 @@ const EditProfile = ({ navigation }) => {
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
-                        value="emily.mark@gmail.com"
+                        value={EditData.email}
+                        onChangeText={(e)=>setEditData({...EditData,email:e})}
                     />
                 </Item>
                 <Item
@@ -74,14 +119,15 @@ const EditProfile = ({ navigation }) => {
                         autoCorrect={false}
                         placeholderTextColor={COLORS.white}
                         autoCapitalize="none"
-                        value="70 Fairway Dr., 41, Palm Beach Gardens, 33418"
+                        value={EditData.address}
+                        onChangeText={(e)=>setEditData({...EditData,address:e})}
                     />
                 </Item>
 
                 <Button
                     style={GLOBALSTYLE.themebtn}
                     mode="contained"
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={onSubmit}
                 >
                     <Text style={{ color: 'white', fontSize: 14, textTransform: 'uppercase' }}>save details</Text>
                 </Button>
@@ -91,7 +137,7 @@ const EditProfile = ({ navigation }) => {
     )
 }
 
-export default EditProfile;
+export default connect(null,{ updateProfile})(EditProfile);
 
 const styles = StyleSheet.create({
     container: {
@@ -107,7 +153,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 27,
+        fontSize: 32,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',

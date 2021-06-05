@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import api from '../utils/api';
 const setAuthToken = (token) => {
   if (token) {
-    console.log("SetAuthTokenCalled")
-    console.log(token)
+    // console.log("SetAuthTokenCalled")
+    // console.log(token)
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     AsyncStorage.setItem('token', token);
     // AsyncStorage.setItem('isAdmin', isAdmin);

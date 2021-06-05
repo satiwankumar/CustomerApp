@@ -12,6 +12,7 @@ export const COLORS = {
     transparent: "transparent", 
     darkgray : "#2e2f34",
     lightGray: "#A1A0A1",
+    yellow:'#f3c030'
     
 };
 

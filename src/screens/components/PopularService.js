@@ -5,7 +5,7 @@ import {  COLORS, SIZES, GLOBALSTYLE ,TEXTSTYLES  } from "../../constants";
 
 const Popular = (props) => {
     return (
-        <View style={{flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:COLORS.secondry,borderRadius:10,margin:15,width:SIZES.width*0.90,alignSelf:'center'}}>
+        <View style={{flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:COLORS.secondry,borderRadius:10,margin:15}}>
                      <View style={{width:'40%'}}>
                      <Image
                              source={props.serviceImg}

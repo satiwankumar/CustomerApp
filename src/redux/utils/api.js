@@ -2,7 +2,8 @@ import axios from 'axios';
 import store from '../store';
 
 const api = axios.create({
-  baseURL: 'http://192.168.8.101:5000/api',
+  // baseURL: 'http://192.168.8.104:5000/api',
+  baseURL: 'https://barberp.herokuapp.com/api',
   
 
     headers:{

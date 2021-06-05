@@ -5,8 +5,10 @@ import { COLORS, SIZES, TEXTSTYLES } from "../constants";
 import { Container, Header, Content, Form, Item, Input, Button, View, Icon,TouchableOpacity } from 'native-base';
 import Service from './components/Service'
 
-
+import Vendor from './components/Vendor'
 const AllServices = (props) => {
+  const  passedRoute = props.route.params;
+  console.log("ALLL TYPESSS",passedRoute.type)
   return (
     
 
@@ -25,40 +27,15 @@ const AllServices = (props) => {
           </Button>
         </Header>
 
-        <Text style={TEXTSTYLES.sectionHead}>All Services</Text>
+        <Text style={TEXTSTYLES.sectionHead}>View All {passedRoute.type}</Text>
 
     <View style={styles.servicePage} >
-    <Service
-                imageUri={require("../assets/images/service1.png")}
-                serviceTitle="Grooming"
-                navigation={props.navigation}
-              />
-              <Service
-                imageUri={require("../assets/images/service2.png")}
-                serviceTitle="HairCut/Trim"
-                navigation={props.navigation}
-              />
-           <Service 
-          imageUri={require("../assets/images/service3.png")}
-          serviceTitle="Men's Facial"
-          navigation={props.navigation}
-          />
-           <Service 
-          imageUri={require("../assets/images/service1.png")}
-          serviceTitle="Grooming"
-          navigation={props.navigation}
-          />
-
-<Service 
-          imageUri={require("../assets/images/service2.png")}
-          serviceTitle="Haircut/Trim"
-          navigation={props.navigation}
-          />
-           <Service 
-          imageUri={require("../assets/images/service3.png")}
-          serviceTitle="Men's Facial"
-          navigation={props.navigation}
-          />
+      {passedRoute.type === 'Vendors' ?
+     <Vendor />:
+     passedRoute.type === 'Services' ? 
+     <Service /> :
+     <Text></Text>
+     }
         </View>
 
        
@@ -83,4 +60,5 @@ display:'flex',
 flexDirection:'row',
 alignItems:'center',justifyContent:'center'
 }
+
 });

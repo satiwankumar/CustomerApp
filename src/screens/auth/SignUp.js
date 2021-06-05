@@ -5,6 +5,7 @@ import { COLORS, SIZES, GLOBALSTYLE } from '../../constants';
 import { Icon } from 'native-base';
 import ImagePicker from 'react-native-image-crop-picker';
 import Toast from 'react-native-simple-toast';
+import ImgToBase64 from 'react-native-image-base64';
 
 const SignUp = ({ navigation }) => {
     const [formData, setFormData] = useState({
@@ -17,8 +18,11 @@ const SignUp = ({ navigation }) => {
         password: '',
         confirmpassword: '',
         country: '',
-        city: ''
+        city: '',
     })
+
+    
+    
 
     const { firstname, lastname, email, password, image, confirmpassword } = formData
 
@@ -63,6 +67,9 @@ const SignUp = ({ navigation }) => {
         }).then(avatar => {
             console.log("Image", avatar);
             setFormData({ ...formData, image: avatar.path })
+            
+            
+
         });
     }
     return (
@@ -154,8 +161,8 @@ const SignUp = ({ navigation }) => {
                     <Button
                         style={GLOBALSTYLE.themebtn}
                         mode="contained"
-                        // onPress={onSubmit}
-                    onPress={() => navigation.navigate('SignUp2')}
+                        onPress={onSubmit}
+                    // onPress={() => navigation.navigate('SignUp2')}
                     >
                         <Text style={{ color: 'white', fontSize: 16, textTransform: 'uppercase' }}>Next
                 <Icon style={{ fontSize: 15, marginLeft: 10 }} name='arrow-forward' />
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
     },
     headText: {
         fontFamily: 'RobotoSlab-Regular',
-        fontSize: 27,
+        fontSize: 32,
         color: COLORS.white,
         textTransform: 'uppercase',
         fontWeight: 'bold',

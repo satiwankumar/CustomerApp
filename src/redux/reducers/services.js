@@ -1,8 +1,9 @@
-import {GET_SERVICES,SERVICES_ERROR} from '../actions/types'
+import {GET_SERVICES,SERVICES_ERROR,GET_JOBS,JOBS_ERROR,GET_SHOPS,SHOPS_ERROR} from '../actions/types'
 
 const initialState = {
     Services :[],
     loading:true,
+    Jobs :[],
 }
 
 export default function(state = initialState, action){
@@ -22,8 +23,22 @@ export default function(state = initialState, action){
                 loading:false,
                 Services:[],
             }
+        case GET_JOBS:
+                return {
+                    ...state,
+                    loading:false,
+                    Jobs:payload,
+                }
+        case JOBS_ERROR:
+                return{
+                    ...state,
+                    loading:false,
+                    Jobs:[],
+                }
        
         default:
                 return state;
          }   
 }
+
+

@@ -1,21 +1,23 @@
 import api from '../utils/api'
-import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_PROFILE, INFO_UPDATED, INFO_ERROR } from './types'
+import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, CLEAR_PROFILE, INFO_UPDATED, INFO_ERROR,SUCCESS_FORGOTPASSWORD ,SUCCESS_VERIFY_CODE} from './types'
 import AsyncStorage from '@react-native-community/async-storage'
 import setAuthToken from '../utils/setAuthToken'
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
+import { getUserData } from '../storage/storage';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
 
 // BEGIN: LOAD USER
 export const loadUser = () => async dispatch => {
     try {
-        console.log("LOAD USER CALLELLEDD")
-        var userData = await AsyncStorage.getItem('@userData')
-        var jsonData = JSON.parse(userData)
-        console.log('LOADING USERRRRR',userData)
+        console.log("LOADINGGG USER APPIIIII")
+        const res = await api.get('/auth');
+        
         dispatch({
             type: USER_LOADED,
-            payload: jsonData
+            payload: res.data
         })
+        
 
     } catch (err) {
         console.log(err)
@@ -37,6 +39,7 @@ export const register = (formData,navigation) => async dispatch => {
 
         dispatch(loadUser())
         Toast.show("Registered Successfully", Toast.SHORT)
+        navigation.navigate('LoginScreen')
     } catch (err) {
         console.log(err.response.data)
         const errors = err.response.data.errors
@@ -52,24 +55,24 @@ export const register = (formData,navigation) => async dispatch => {
 // END: REGISTER USER
 
 // BEGIN: LOGIN
-export const login = (formData, navigation) => async dispatch => {
+export const login = (formData) => async dispatch => {
     try {
         console.log("FOEM DATATT", formData)
-        const res = await api.post('/auth/login/admin', formData)
+        const res = await api.post('/auth/login', formData)
         console.log("login success", res.data)
-        // AsyncStorage.setItem('token',JSON.stringify(res.data.token))
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
         })
-        Toast.show(res.data.message, Toast.SHORT)
+        Toast.show("Login Successful!", Toast.SHORT)
         dispatch(loadUser())
-    
-        navigation.navigate('FindServices')
+        var userData =  await AsyncStorage.getItem('@userData')
+        console.log('USER ADRSSTTSTSTSTTTTTTTTt',userData)
+        
 
     } catch (err) {
         console.log("MASLLALALLAL", err);
-        Toast.show('Incorrect ID or Password', Toast.SHORT)
+        Toast.show("Login Failed.", Toast.SHORT)
         const errors = err.response.data.errors
         if (errors) {
             errors.forEach(error => dispatch(error.msg, 'danger'))
@@ -84,8 +87,111 @@ export const login = (formData, navigation) => async dispatch => {
 // BEGIN: LOGOUT
 export const logout = () => dispatch => {
     Toast.show("Logged Out Successfully", Toast.SHORT)
+    LoginManager.logOut();
     dispatch({
         type: LOGOUT
     })
 }
 // END: LOGOUT
+
+// BEGIN: FORGOT PASSWORD
+export const forgotPassword = (email,navigation) => async dispatch => {
+    console.log('AGAGEE')
+    const body = JSON.stringify({ email })
+    try {
+        const res = await api.post('/auth/forgot', body)
+        console.log("FORGOT PASSSS",res.data)
+        dispatch({
+            type: SUCCESS_FORGOTPASSWORD,
+            payload: email
+        });
+       Toast.show("Password Recovery Code Sent. ", Toast.SHORT)
+       navigation.navigate('ResetCode')
+       
+      
+    }
+    catch (err) {
+        console.log(err.response.data.message)
+        Toast.show("Email not Found!", Toast.SHORT)
+      
+        dispatch(
+            {
+                type: LOGIN_FAIL
+            }
+        )
+    }
+
+}
+// END: FORGOT PASSWORD
+
+// BEGIN: VERIFY CODE
+export const verifyCode = (resetCode) => async dispatch => {
+
+    const body = JSON.stringify({ resetCode })
+
+    try {
+        const res = await api.post('/auth/verifycode', body)
+        console.log(res)
+        dispatch({
+            type: SUCCESS_VERIFY_CODE,
+            payload: resetCode
+        });
+
+        Toast.show("Code Verified, Please Set your New Password.", Toast.SHORT)
+        
+
+    }
+
+    catch (err) {
+
+        const errors = err.response.data.errors;
+
+
+        if (errors) {
+            errors.forEach(error =>   Toast.show(error.msg, Toast.SHORT)
+            )
+
+        }
+        dispatch(
+            {
+                type: LOGIN_FAIL
+            }
+        )
+    }
+
+}
+
+export const resetPassword = (newpassword, confirmpassword, resetCode) => async dispatch => {
+    const body = JSON.stringify({ newpassword, confirmpassword })
+    try {
+        const res = await api.post(`/auth/reset/${resetCode}`, body)
+        console.log("res.data", res.data.message)
+        dispatch({
+            type: SUCCESS_VERIFY_CODE,
+            payload: res.data
+        });
+
+        Toast.show("Password Updated", Toast.SHORT)
+
+    }
+    catch (err) {
+
+        const errors = err.response.data.errors;
+        console.log(err.response)
+        // toast.error(err.res.data.message)
+
+
+        if (errors) {
+            errors.forEach(error => 
+                Toast.show(error.msg, Toast.SHORT)
+            )
+
+        }
+        dispatch(
+            {
+                type: LOGIN_FAIL
+            }
+        )
+    }
+
+}

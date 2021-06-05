@@ -4,17 +4,12 @@ import { COLORS, SIZES, GLOBALSTYLE, TEXTSTYLES } from '../constants';
 import * as Animatable from 'react-native-animatable';
 import { Container, Header, Content, Form, Item, Input, Button, Label, Icon,Accordion  } from 'native-base';
 import Vendor from './components/Vendor'
+import {getNearbyShops} from '../redux/actions/shops'
 import Service from './components/Service'
-import {getServices} from '../redux/actions/services'
-import {connect} from 'react-redux'
-import {useDispatch,useSelector} from 'react-redux'
-const Home = (props) => {
+const Home = (props,{isAuthenticated}) => {
+  const [keyword,setKeyword] = useState('')
 
-    // useEffect(() => {
-    //    getServices()
-    //     console.log("STYSGDHBDBBBBBBBBBBBBBBBBBBBBBBB",Services)
-    // },[])
-
+  console.log('Home rpopsss',props.isAuthenticated)
   return (
     <View style={GLOBALSTYLE.screenbg} >
      
@@ -29,11 +24,16 @@ const Home = (props) => {
         animation="slideInUp"
       >
 
-<Header searchBar rounded style={{backgroundColor:COLORS.primary,width:SIZES.width*0.95,alignSelf:'center'}}>
+<Header searchBar rounded style={{backgroundColor:COLORS.primary}}>
           <Item style={{backgroundColor:COLORS.black,height:50,borderRadius:8}}>
             <Icon name="ios-search" />
-            <Input placeholder="Search Nearby" style={{color:COLORS.white}} />
-            <Icon name="ios-people" />
+            <Input placeholder="Search Nearby Shops"
+             value={keyword}
+             onChangeText={(e)=>setKeyword(e)}
+             style={{color:COLORS.white}} />
+            <Button style={{backgroundColor:COLORS.transparent,elevation:0}} onPress={() => setKeyword('')}>
+             <Icon style={{color:COLORS.lightGray}}  name="close-sharp"></Icon>
+             </Button>
           </Item>
           <Button transparent>
             <Text>Search</Text>
@@ -47,63 +47,16 @@ const Home = (props) => {
         
           <View >
           <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} >
-            <Service
-              imageUri={require("../assets/images/service1.png")}
-              serviceTitle="Grooming"
-              navigation={props.navigation}
-            />
-            <Service
-              imageUri={require("../assets/images/service2.png")}
-              serviceTitle="Haircut/Trim"
-              navigation={props.navigation}
-            />
-            <Service
-              imageUri={require("../assets/images/service3.png")}
-              serviceTitle="Men's Facial"
-              navigation={props.navigation}
-            />
-            <Button
-              onPress={() => props.navigation.navigate('AllServices')}
-              style={{ alignSelf: 'center', backgroundColor: '#000', borderRadius: 100, borderWidth: 1, borderColor: '#fff', height: 55, width: 55 }}>
-              <Icon name='arrow-forward-outline' style={{ fontSize: 24, color: COLORS.white }} />
-            </Button>
+            <Service navigation={props.navigation}/>
+            
           </ScrollView>
         </View>
 
           <Text style={TEXTSTYLES.sectionHead}>Explore In Your Area</Text>
           <View >
             <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false} >
-              <Vendor
-                imageUri={require("../assets/images/salon1.jpg")}
-                vendorName='Chipper Salon'
-                vendorLocation='Bukhari Lane 12, Karachi Defence Housing Society'
-                vendorRating='4.3'
-                reviewCount='14'
-                navigation={props.navigation}
-              />
-
-              <Vendor
-                imageUri={require("../assets/images/salon2.jpg")}
-                vendorName='Neville'
-                vendorLocation='7100 Fairway Dr., 41, Palm Beach Gardens, 33418'
-                vendorRating='4.4'
-                reviewCount='12'
-                navigation={props.navigation}
-              />
-              <Vendor
-                imageUri={require("../assets/images/salon3.jpg")}
-                vendorName='Bedale Beauty'
-                vendorLocation='326 W. Chelten Ave., Suite# A, Philadelphia, 19144'
-                vendorRating='4.0'
-                reviewCount='20'
-                navigation={props.navigation}
-              />
-
-              <Button
-                onPress={() => props.navigation.navigate('AllServices')}
-                style={{ alignSelf: 'center', backgroundColor: '#000', borderRadius: 100, borderWidth: 1, borderColor: '#fff', height: 55, width: 55,marginLeft:10 }}>
-                <Icon name='arrow-forward-outline' style={{ fontSize: 24, color: COLORS.white }} />
-              </Button>
+             <Vendor  keyword={keyword}  navigation={props.navigation}/>
+             
             </ScrollView>
           </View>
 
@@ -116,11 +69,11 @@ const Home = (props) => {
 };
 
 
-const mapStateToProps = (state) => ({
-  services: state.services,
-  auth:state.auth
-});
-export default connect(mapStateToProps, {  getServices })(Home);
+// const mapStateToProps = (state) => ({
+//   services: state.services,
+//   auth:state.auth
+// });
+export default Home;
 
 const styles = StyleSheet.create({
   formPart: {
@@ -129,7 +82,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     backgroundColor: COLORS.primary,
     paddingVertical: 30,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    
   },
   imageBg:{
     width:'100%',
